@@ -1,117 +1,138 @@
 #define ledOne 2
-#define ledTwo 3
-#define ledThree 4
-#define ledFour 5
-#define ledFive 6
 #define buzzer 7
 
-// digitalWrite(LED Number, LOW or HIGH);
-// delay(number in milliseconds) 1000 = 1 second 
-// pinMode(LED Number, Mode) INPUT or OUPUT
-
-
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(ledOne, OUTPUT); 
-  pinMode(ledTwo, OUTPUT); 
-  pinMode(ledThree, OUTPUT); 
-  pinMode(ledFour, OUTPUT); 
-  pinMode(ledFive, OUTPUT); 
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(ledOne, LOW); 
-  delay(1000);
-
-  digitalWrite(ledOne, HIGH); 
-  delay(1000);
-}
-
-
-// Octave 1
-// C1  = 32.70
-// C#1 = 34.65 / Db1 = 34.65
-// D1  = 36.71
-// D#1 = 38.89 / Eb1 = 38.89
-// E1  = 41.20
-// F1  = 43.65
-// F#1 = 46.25 / Gb1 = 46.25
-// G1  = 49.00
-// G#1 = 51.91 / Ab1 = 51.91
-// A1  = 55.00
-// A#1 = 58.27 / Bb1 = 58.27
-// B1  = 61.74
-
-// Octave 2
-// C2  = 65.41
-// C#2 = 69.30 / Db2 = 69.30
-// D2  = 73.42
-// D#2 = 77.78 / Eb2 = 77.78
-// E2  = 82.41
-// F2  = 87.31
-// F#2 = 92.50 / Gb2 = 92.50
-// G2  = 98.00
-// G#2 = 103.83 / Ab2 = 103.83
-// A2  = 110.00
-// A#2 = 116.54 / Bb2 = 116.54
-// B2  = 123.47
-
+// ========================
+// Note frequency constants
+// ========================
 // Octave 3
-// C3  = 130.81
-// C#3 = 138.59 / Db3 = 138.59
-// D3  = 146.83
-// D#3 = 155.56 / Eb3 = 155.56
-// E3  = 164.81
-// F3  = 174.61
-// F#3 = 185.00 / Gb3 = 185.00
-// G3  = 196.00
-// G#3 = 207.65 / Ab3 = 207.65
-// A3  = 220.00
-// A#3 = 233.08 / Bb3 = 233.08
-// B3  = 246.94
+#define C3  131
+#define D3  147
+#define E3  165
+#define F3  175
+#define G3  196
+#define A3  220
+#define B3  247
 
 // Octave 4
-// C4  = 261.63  // Middle C
-// C#4 = 277.18 / Db4 = 277.18
-// D4  = 293.66
-// D#4 = 311.13 / Eb4 = 311.13
-// E4  = 329.63
-// F4  = 349.23
-// F#4 = 369.99 / Gb4 = 369.99
-// G4  = 392.00
-// G#4 = 415.30 / Ab4 = 415.30
-// A4  = 440.00  // Tuning standard
-// A#4 = 466.16 / Bb4 = 466.16
-// B4  = 493.88
+#define C4  262
+#define D4  294
+#define E4  330
+#define F4  349
+#define G4  392
+#define A4  440
+#define B4  494
 
 // Octave 5
-// C5  = 523.25
-// C#5 = 554.37 / Db5 = 554.37
-// D5  = 587.33
-// D#5 = 622.25 / Eb5 = 622.25
-// E5  = 659.25
-// F5  = 698.46
-// F#5 = 739.99 / Gb5 = 739.99
-// G5  = 783.99
-// G#5 = 830.61 / Ab5 = 830.61
-// A5  = 880.00
-// A#5 = 932.33 / Bb5 = 932.33
-// B5  = 987.77
+#define C5  523
+#define D5  587
+#define E5  659
+#define F5  698
+#define G5  784
+#define A5  880
+#define B5  988
 
 // Octave 6
-// C6  = 1046.50
-// C#6 = 1108.73 / Db6 = 1108.73
-// D6  = 1174.66
-// D#6 = 1244.51 / Eb6 = 1244.51
-// E6  = 1318.51
-// F6  = 1396.91
-// F#6 = 1479.98 / Gb6 = 1479.98
-// G6  = 1567.98
-// G#6 = 1661.22 / Ab6 = 1661.22
-// A6  = 1760.00
-// A#6 = 1864.66 / Bb6 = 1864.66
-// B6  = 1975.53
+#define C6  1047
+#define D6  1175
+#define E6  1319
+#define F6  1397
+#define G6  1568
+#define A6  1760
+#define B6  1976
+
+// ========================
+// Utility function
+// ========================
+void playNote(int pin, int frequency, int duration) {
+  tone(pin, frequency, duration); 
+  delay(duration);                
+  noTone(pin);                    
+  delay(50);                      
+}
+
+// ========================
+// Scale functions
+// ========================
+void playAscending(int pin) {
+  playNote(pin, C4, 400);
+  playNote(pin, D4, 400);
+  playNote(pin, E4, 400);
+  playNote(pin, F4, 400);
+  playNote(pin, G4, 400);
+  playNote(pin, A4, 400);
+  playNote(pin, B4, 400);
+  playNote(pin, C5, 600);
+}
+
+void playDescending(int pin) {
+  playNote(pin, C5, 400);
+  playNote(pin, B4, 400);
+  playNote(pin, A4, 400);
+  playNote(pin, G4, 400);
+  playNote(pin, F4, 400);
+  playNote(pin, E4, 400);
+  playNote(pin, D4, 400);
+  playNote(pin, C4, 600);
+}
+
+// ========================
+// Robot voice effect
+// ========================
+void playRobot(int pin) {
+  // Do a few random chirps
+  for (int i = 0; i < 10; i++) {
+    int freq = random(400, 2000);       // random pitch
+    int duration = random(80, 200);     // short beep
+    tone(pin, freq, duration);
+    delay(duration + random(20, 80));   // small random pause
+  }
+
+  // Do a quick upward sweep
+  for (int freq = 600; freq < 1600; freq += 40) {
+    tone(pin, freq, 20);
+    delay(20);
+  }
+
+  // Do a quick downward sweep
+  for (int freq = 1600; freq > 400; freq -= 35) {
+    tone(pin, freq, 20);
+    delay(20);
+  }
+
+  noTone(pin);
+  delay(100);
+}
 
 
 
+// ========================
+// Confirmation button 
+// ========================
+void playConfirm(int pin) {
+  playNote(pin, E5, 100);  // E5
+  playNote(pin, A5, 150);  // A5
+}
+
+// ========================
+// Setup
+// ========================
+void setup() {
+  pinMode(ledOne, OUTPUT);
+  pinMode(buzzer, OUTPUT);
+}
+
+// ========================
+// Loop
+// ========================
+void loop() {
+  digitalWrite(ledOne, HIGH);
+
+  // Uncomment what you want to test:
+  playAscending(buzzer);
+  playDescending(buzzer);
+  playRobot(buzzer);
+  playConfirm(buzzer);
+
+  digitalWrite(ledOne, LOW);
+  delay(1000);
+}
